@@ -7,7 +7,6 @@ WORKDIR /build
 
 # Copy the source code excluding the 'data' directory
 COPY . ./
-RUN rm -rf ./data
 RUN go build -o scaler cmd/scaler/main.go
 
 # In the second stage, we'll use a small, lightweight base image.
@@ -29,9 +28,6 @@ COPY --from=builder /build /app/source
 # Copy the startup script.
 COPY run.sh run.sh
 RUN chmod +x run.sh
-
-# Set the startup script as the entry point.
-# ENTRYPOINT ["./run.sh"]
 
 
 
